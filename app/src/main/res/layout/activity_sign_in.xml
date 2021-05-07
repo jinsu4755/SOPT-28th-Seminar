@@ -21,8 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/id_label"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            android:theme="@style/TitleSubTitle214PtBoldNotosans"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             />
@@ -32,8 +31,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/request_id_message"
+            android:paddingVertical="13dp"
+            android:paddingStart="16dp"
+            android:background="@drawable/input_focus_selector"
             app:layout_constraintTop_toBottomOf="@id/login_id_label"
-            />
+            tools:layout_editor_absoluteX="0dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -69,7 +71,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/login_button_text"
+        android:textColor="@color/white"
         android:layout_marginTop="50dp"
+        android:background="@drawable/rectangle_radius_5dp"
+        android:backgroundTint="@color/sopt_main"
         app:layout_constraintTop_toBottomOf="@id/login_password_input_container"
         />
 
@@ -93,9 +98,9 @@
             android:id="@+id/go_sign_up_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:text="회원가입"
             android:textSize="16dp"
-            android:layout_marginStart="20dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/go_sign_up_layout_text"
             app:layout_constraintStart_toEndOf="@id/go_sign_up_layout_text"

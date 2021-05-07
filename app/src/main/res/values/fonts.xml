@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TitleViewTitle26PtBoldNotosans">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+    <style name="TitleTitle20PtBoldNotosans">
+        <item name="android:fontFamily">@font/noto_sans_kr</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="TitleSubTitle116PtBoldNotosans">
+        <item name="android:fontFamily">@font/noto_sans_kr</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="BtnBtn15PtBoldNotosans">
+        <item name="android:fontFamily">@font/noto_sans_kr</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+    <style name="TitleSubTitle214PtBoldNotosans">
+        <item name="android:fontFamily">@font/noto_sans_kr</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="SubSub114PtRegularNotosans">
+        <item name="android:fontFamily">@font/noto_sans_kr</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+</resources>

@@ -15,6 +15,7 @@ class SignInActivity : LifecycleLoggingActivity() {
     private val signUpActivityLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {
+        val id:String 
         binding.loginIdInput.setText(it.data?.getStringExtra("id"))
     }
 
