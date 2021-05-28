@@ -23,7 +23,7 @@ class HomeActivity : LifecycleLoggingActivity() {
 
     private fun initView(binding: ActivityHomeBinding) {
         with(binding) {
-            setGithubRepoAdapter(binding = this)
+            setGithubRepoAdapter(this)
         }
         initRepositories()
     }

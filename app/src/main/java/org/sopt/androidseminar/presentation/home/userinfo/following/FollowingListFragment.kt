@@ -15,7 +15,7 @@ class FollowingListFragment : LifecycleLoggingFragment() {
     private var _binding: FragmentFollowingListBinding? = null
     private val binding get() = _binding ?: error("View 를 참조하기위해 binding 이 초기화 되지 않았습니다.")
 
-    private lateinit var followingListAdapter: FollowingListAdapter
+    private val followingListAdapter: FollowingListAdapter by lazy { FollowingListAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,8 +34,6 @@ class FollowingListFragment : LifecycleLoggingFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // 1. 우리가 사용할 어뎁터의 초기 값을 넣어줍시다!
-        followingListAdapter =
-            FollowingListAdapter()
 
         // 2. RecyclerView 에 어뎁터를 우리가 만든 어뎁터로 만들어줍시다!
         binding.userList.adapter = followingListAdapter

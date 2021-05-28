@@ -43,10 +43,23 @@ dependencies {
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.annotation:annotation:1.2.0'
+
+    //아래 두가지는 제가 자주 쓰는 설정으로 만들다 잘못 들어갔으니 신경쓰지 말아주세요~~
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    //동그란 이미지 뷰 라이브러리
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+
+    // 서버 연결을 위한 Retrofit2
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    // gson
+    implementation 'com.google.code.gson:gson:2.8.6'
+    // retrofit2에서 gson 사용을 위한 컨버터
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 }
