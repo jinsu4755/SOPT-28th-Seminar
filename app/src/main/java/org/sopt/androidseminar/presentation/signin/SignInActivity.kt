@@ -7,12 +7,15 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import org.sopt.androidseminar.api.ServiceCreator
 import org.sopt.androidseminar.data.SoptUserAuthStorage
+import org.sopt.androidseminar.data.local.SoptUserInfo
 import org.sopt.androidseminar.data.request.RequestLoginData
 import org.sopt.androidseminar.data.response.ResponseLoginData
 import org.sopt.androidseminar.databinding.ActivitySignInBinding
 import org.sopt.androidseminar.presentation.home.HomeActivity
 import org.sopt.androidseminar.presentation.signup.SignUpActivity
 import org.sopt.androidseminar.utils.LifecycleLoggingActivity
+import org.sopt.androidseminar.utils.enqueueUtil
+import org.sopt.androidseminar.utils.showToast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,21 +40,12 @@ class SignInActivity : LifecycleLoggingActivity() {
     }
 
     private fun searchUserAuthStorage() {
-        // UserAuthStorage 에 데이터가 있다면
-        if (hasUserAuthData()) {
-            // 저장된 id/pw로 로그인을 한다
-            requestLogin(
-                RequestLoginData(
-                    id = SoptUserAuthStorage.getUserId(this),
-                    password = SoptUserAuthStorage.getUserPw(this)
-                )
-            )
+        with(SoptUserAuthStorage.getInstance(this)) {
+            if (hasUserData()) {
+                requestLogin(getUserData().let { RequestLoginData(it.id, it.password) })
+            }
         }
     }
-
-    // UserAuthStorage 에서 id, pw가 있는지 찾는다.
-    private fun hasUserAuthData() = SoptUserAuthStorage.getUserId(this).isNotEmpty() &&
-        SoptUserAuthStorage.getUserPw(this).isNotEmpty()
 
     private fun setButtonEvent() {
         with(binding) {
@@ -78,39 +72,16 @@ class SignInActivity : LifecycleLoggingActivity() {
         // 데이터를 받아오고 실행된다.
         val call: Call<ResponseLoginData> = ServiceCreator.soptService
             .postLogin(requestLoginData)
-        /* enqueue 함수를 이용해 Call 이 비동기 작업이후 동작할 Callback 을 등록할 수 있다.
-        * 해당 함수 호출은 Callback 을 등록만하고 
-        * 실제 서버 통신을 요청이후 통신 결과가 나왔을때 실행된다.*/
-        // object 키워드로 Callback 을 구현할 익명 클래스를 생성
-        call.enqueue(object : Callback<ResponseLoginData> {
-            // 네트워크 통신 Response 가 있는 경우 해당 함수를 retrofit 이 호출
-            override fun onResponse(
-                call: Call<ResponseLoginData>,
-                response: Response<ResponseLoginData>
-            ) {
-                // 네트워크 통신에 성공한 경우 status 코드가 200~300일때! 실행
-                if (response.isSuccessful) {
-                    // response body 자체가 nullable 데이터! 그런데 서버에서 오는 data 도 nullable!
-                    val data = response.body()?.data
-                    // 통신 성공시 유저 닉네임을 보여준다.
-                    Toast.makeText(this@SignInActivity, data?.user_nickname, Toast.LENGTH_SHORT)
-                        .show()
-                    if (!hasUserAuthData()) {
-                        with(binding) {
-                            SoptUserAuthStorage.saveUserId(this@SignInActivity, loginIdInput.text.toString())
-                            SoptUserAuthStorage.saveUserPw(this@SignInActivity, loginPasswordInput.text.toString())
-                        }
-                    }
-                    // 홈 화면으로 넘어간다.
-                    startHomeActivity()
+        call.enqueueUtil(
+            onSuccess = { response ->
+                val data = response.data
+                showToast(data?.user_nickname.toString())
+                with(SoptUserAuthStorage.getInstance(this)) {
+                    saveUserData(requestLoginData.let { SoptUserInfo(it.id, it.password) })
                 }
+                startHomeActivity()
             }
-
-            // 네트워크 통신 자체가 실패한 경우 해당 함수를 retrofit 이 실행!
-            override fun onFailure(call: Call<ResponseLoginData>, t: Throwable) {
-                Log.d("NetworkTest", "error:$t")
-            }
-        })
+        )
     }
 
     private fun startHomeActivity() {

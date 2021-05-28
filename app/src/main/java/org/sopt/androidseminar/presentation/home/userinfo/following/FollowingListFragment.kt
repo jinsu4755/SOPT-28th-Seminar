@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import org.sopt.androidseminar.data.FollowingUserInfo
 import org.sopt.androidseminar.databinding.FragmentFollowingListBinding
-import org.sopt.androidseminar.presentation.home.userinfo.following.FollowingListAdapter
 import org.sopt.androidseminar.utils.LifecycleLoggingFragment
+import org.sopt.androidseminar.utils.showToast
 
 class FollowingListFragment : LifecycleLoggingFragment() {
     // 원래는 Fragment() 라는 친구를 상속해야하지만 세미나 생명주기 부분 출력으로 저는 따로 상속합니다!
@@ -33,6 +33,7 @@ class FollowingListFragment : LifecycleLoggingFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        requireContext().showToast("hello")
         // 1. 우리가 사용할 어뎁터의 초기 값을 넣어줍시다!
 
         // 2. RecyclerView 에 어뎁터를 우리가 만든 어뎁터로 만들어줍시다!
