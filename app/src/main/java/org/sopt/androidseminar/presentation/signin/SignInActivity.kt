@@ -95,9 +95,11 @@ class SignInActivity : LifecycleLoggingActivity() {
                     // 통신 성공시 유저 닉네임을 보여준다.
                     Toast.makeText(this@SignInActivity, data?.user_nickname, Toast.LENGTH_SHORT)
                         .show()
-                    with(binding) {
-                        SoptUserAuthStorage.saveUserId(this@SignInActivity, loginIdInput.text.toString())
-                        SoptUserAuthStorage.saveUserPw(this@SignInActivity, loginPasswordInput.text.toString())
+                    if (!hasUserAuthData()) {
+                        with(binding) {
+                            SoptUserAuthStorage.saveUserId(this@SignInActivity, loginIdInput.text.toString())
+                            SoptUserAuthStorage.saveUserPw(this@SignInActivity, loginPasswordInput.text.toString())
+                        }
                     }
                     // 홈 화면으로 넘어간다.
                     startHomeActivity()
